@@ -1,6 +1,6 @@
 package org.example;
 
-public class Pagamentos extends Pedidos{
+public class Pagamentos extends Carrinho{
     private String pagamento;
     private double desconto;
 
