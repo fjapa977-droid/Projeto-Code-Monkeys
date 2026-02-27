@@ -1,5 +1,9 @@
 package org.example;
-
-public class Pedidos extends Estoque{
+//feh
+public class Pedidos extends Estoque/*estoque = Produtos*/{
     private String numPedido;
+
+    public Pedidos(String numPedido) {
+        super();
+    }
 }
