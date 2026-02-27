@@ -1,5 +1,7 @@
 package org.example;
 
-public class Pedidos extends Estoque{
+public class Carrinho extends Estoque{
     private String numPedido;
+
+
 }
