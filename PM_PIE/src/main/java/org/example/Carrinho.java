@@ -3,8 +3,9 @@ package org.example;
 import java.util.List;
 
 public class Carrinho extends Produtos{
-    private List<Object> numPedido;
+    private List<Object> numPedido; //vai voltar a ser um int pq nao necessariamente precisa armazenar td
     private Double soma;
+    private static int globalCounter = 0; //vai ser o numPedido
     public Carrinho(List<Object> numPedido, List<List<Object>> listaMistaMock) {
         super(listaMistaMock);
         this.numPedido = numPedido;
@@ -28,7 +29,7 @@ public class Carrinho extends Produtos{
     }
     private void AdicionaraAoPedido(List<Object> numPedido, List<List<Object>> listaMistaMock)
     {
-        numPedido.add(listaMistaMock.get(0));//e pra no final retornar 29.5
+        numPedido.add(listaMistaMock.get(0));//melhorar essa logica
         numPedido.add(getSoma());
     }
     public List<Object> getNumPedido() {
