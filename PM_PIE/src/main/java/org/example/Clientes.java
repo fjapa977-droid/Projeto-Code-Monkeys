@@ -4,11 +4,13 @@ public class Clientes {
     private String nomeCliente;
     private String endereco;
     private String telefone;
+    private int idCliente;
 
-    public Clientes(String nomeCliente, String endereco, String telefone) {
+    public Clientes(String nomeCliente, String endereco, String telefone, int idCliente) {
         this.nomeCliente = nomeCliente;
         this.endereco = endereco;
         this.telefone = telefone;
+        this.idCliente = idCliente;
     }
 
     public String getTelefone() {
