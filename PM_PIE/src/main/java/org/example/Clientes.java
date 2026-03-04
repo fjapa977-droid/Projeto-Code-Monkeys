@@ -3,21 +3,21 @@ package org.example;
 public class Clientes {
     private String nomeCliente;
     private String endereco;
-    private String telefone;
+    private int telefone;
     private int idCliente;
 
-    public Clientes(String nomeCliente, String endereco, String telefone, int idCliente) {
+    public Clientes(String nomeCliente, String endereco, int telefone, int idCliente) {
         this.nomeCliente = nomeCliente;
         this.endereco = endereco;
         this.telefone = telefone;
         this.idCliente = idCliente;
     }
 
-    public String getTelefone() {
+    public int getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
+    public void setTelefone(int telefone) {
         this.telefone = telefone;
     }
 
@@ -35,5 +35,13 @@ public class Clientes {
 
     public void setNomeCliente(String nomeCliente) {
         this.nomeCliente = nomeCliente;
+    }
+
+    public int getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
 }

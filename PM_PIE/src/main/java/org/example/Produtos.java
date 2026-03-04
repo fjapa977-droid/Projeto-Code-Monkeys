@@ -4,17 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Produtos {
-    private List<List<Object>> ListaMistaMock;
+    private int id;
+    private String nomeProduto;
+    private double preco;
 
-    public Produtos(List<List<Object>> listaMistaMock) {
-        ListaMistaMock = listaMistaMock;
+    public Produtos(int id, String nomeProduto, double preco) {
+        this.id = id;
+        this.nomeProduto = nomeProduto;
+        this.preco = preco;
     }
 
-    public List<List<Object>> getListaMistaMock() {
-        return ListaMistaMock;
+    public int getId() {
+        return id;
     }
 
-    public void setListaMistaMock(List<List<Object>> listaMistaMock) {
-        ListaMistaMock = listaMistaMock;
+    public String getNomeProduto() {
+        return nomeProduto;
     }
+
+    public void setNomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
+
 }
