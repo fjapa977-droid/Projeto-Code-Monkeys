@@ -1,0 +1,34 @@
+package org.example;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Cardapio {
+    private Map<Integer, Produtos> mapaProdutos = new HashMap<>();
+    //hashmap ao inves de matriz pq fica mais facil de achar o id do produto e atualizar
+
+    public void adicionarProduto(Produtos p)
+    {
+        mapaProdutos.put(p.getId(), p);
+    }
+
+    private Produtos buscarProduto(int id)
+    {
+        return mapaProdutos.get(id);
+    }
+
+    public void atualizarProduto(int id, double preco, String nomeProduto)
+    {
+        Produtos idEncontrado = buscarProduto(id);
+        if(idEncontrado != null)
+        {
+            idEncontrado.setNomeProduto(nomeProduto);
+            idEncontrado.setPreco(preco);
+        }
+    }
+
+    public void removerProduto(int id)
+    {
+        mapaProdutos.remove(id);
+    }
+}
