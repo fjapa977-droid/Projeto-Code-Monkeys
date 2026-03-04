@@ -10,6 +10,7 @@ public class Main {
 
         System.out.println(teste.getListaMistaMock());
 
-        //tava testando
+      chama Cliente e Carrinho auto completa com pedidos sem interacao com usuario
+            //tava testando
     }
 }
