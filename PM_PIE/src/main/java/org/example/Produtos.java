@@ -1,8 +1,5 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Produtos {
     private int id;
     private String nomeProduto;
@@ -33,6 +30,5 @@ public class Produtos {
     public void setPreco(double preco) {
         this.preco = preco;
     }
-
 
 }

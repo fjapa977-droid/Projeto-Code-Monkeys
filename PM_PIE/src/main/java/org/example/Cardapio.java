@@ -12,7 +12,7 @@ public class Cardapio {
         mapaProdutos.put(p.getId(), p);
     }
 
-    private Produtos buscarProduto(int id)
+    Produtos buscarProduto(int id)
     {
         return mapaProdutos.get(id);
     }
@@ -30,5 +30,16 @@ public class Cardapio {
     public void removerProduto(int id)
     {
         mapaProdutos.remove(id);
+    }
+
+    public void exibirCardapio() {
+        if (mapaProdutos.isEmpty()) {
+            System.out.println("O cardápio está vazio.");
+        } else {
+            // Percorre todos os valores do Map e imprime
+            for (Produtos p : mapaProdutos.values()) {
+                System.out.println("ID: " + p.getId() + " | " + p.getNomeProduto() + " - R$ " + p.getPreco());
+            }
+        }
     }
 }

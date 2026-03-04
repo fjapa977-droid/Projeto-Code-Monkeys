@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Estoque {
-    private Map<Integer,Ingredientes > ingredientes = new HashMap<>();
+    /*private Map<Integer,Ingredientes > ingredientes = new HashMap<>();
 
     public void adicionarIngredente(int id, String nome, int quantidade, double quilogramas){
         Ingredientes novo = new Ingrediente(id, nome, quantidade, quilogramas);
@@ -23,6 +23,6 @@ public class Estoque {
         if(ingrediente != null){
             ingrediente.setQuantidade(novaQuantidade);
         }
-    }
+    }*/
 }
 
