@@ -10,12 +10,12 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Cardapio cardapio = new Cardapio();
         System.out.printf("\tSistema iniciado \n");
-        do{
+        do {
 
             System.out.printf("\t1-adicionar produto\n\t2-remover produto\n\t3-atualizar produto\n\t4-exibir cardapio\n\t5-sair");
             String entradaDeDados = sc.nextLine();
             int opcao = Integer.parseInt(entradaDeDados);
-            switch (opcao){
+            switch (opcao) {
                 case 1:
                     System.out.printf("Digite o id do produto: \n");
                     entradaDeDados = sc.nextLine();
@@ -38,12 +38,12 @@ public class Main {
                 case 2:
                     cardapio.exibirCardapio();
                     System.out.printf("\nSelecione o item para remover pelo id\n\tPara voltar ao menu digite \"Sair\"");
-                    try{
+                    try {
                         entradaDeDados = sc.nextLine();
                         idMain = Integer.parseInt(entradaDeDados);
                         //mudar para if normal essa coisa
-                        String sair = entradaDeDados.trim().toLowerCase() == "sair" : break ? throw new e;
-                    } catch(NumberFormatException e){
+                        String sair = entradaDeDados.trim().toLowerCase() == "sair" :break ?throw new e;
+                    } catch (NumberFormatException e) {
                         System.out.printf("Erro valor digitado incorreto");
                     }
                     break;
@@ -57,8 +57,29 @@ public class Main {
                 default:
                     System.out.printf("Opcao invalida");
                     break;
-            }while (flagDoWhile == 1);
+            } while (flagDoWhile == 1) ;
 
-        cardapio.exibirCardapio();
+            cardapio.exibirCardapio();
+        }
     }
+
+        static void menu()
+        {
+            System.out.println("Seja bem-vido ao sistema/n");
+            System.out.println("1.Cadastrar produto");
+            System.out.println("2.Mostrar produto");
+            System.out.println("3.Tirar produto da lista");
+            System.out.println("4.Sair");
+        }
+
+        static void MostrarProdutos (Map<Integer,Produtos> produto)
+        {
+            System.out.println("Menu\n");
+            for (Map.Entry<Integer,Produtos> entry : produto.entrySet())
+            {
+                Integer id = entry.getKey();
+                Produtos item = entry.getValue();
+                System.out.println("ID " + id + " Produto: " + item.getNomeProduto());
+            }
+        }
 }
