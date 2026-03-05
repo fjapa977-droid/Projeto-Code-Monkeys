@@ -5,24 +5,26 @@ import java.util.Map;
 public class Estoque {
     private Map<Integer,Ingredientes > ingredientes = new HashMap<>();
 
-    public void adicionarIngredente(int id, String nome, int quantidade, double quilogramas){
-        Ingredientes novo = new Ingrediente(id, nome, quantidade, quilogramas);
+    public void adicionarIngrediente(int id, String nome, int quantidade, double quilogramas){
+        Ingredientes novo = new Ingredientes(id, nome, quantidade, quilogramas);
 
         ingredientes.put(id,novo);
     }
 
-    public void buscarIngrediente(int id){
+    public Ingredientes buscarIngrediente(int id){
         return ingredientes.get(id);
     }
     public void removerIngrediente(int id){
         ingredientes.remove(id);
     }
-    public atualizarQuantidade(int id,int novaQuantidade){
-        Ingrediente ingrediente = ingredientes.get(id);
+
+    public Ingredientes atualizarQuantidade(int id,int novaQuantidade){
+        Ingredientes ingrediente = ingredientes.get(id);
 
         if(ingrediente != null){
             ingrediente.setQuantidade(novaQuantidade);
         }
+        return ingrediente;
     }
 }
 
