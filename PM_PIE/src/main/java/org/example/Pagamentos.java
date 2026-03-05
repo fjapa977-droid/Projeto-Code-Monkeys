@@ -1,7 +1,7 @@
 package org.example;
 
 import java.util.List;
-
+/*
 public class Pagamentos {
 
     public class(double valorPago,double valorTotal)
@@ -17,3 +17,4 @@ public class Pagamentos {
     }
 
 }
+*/

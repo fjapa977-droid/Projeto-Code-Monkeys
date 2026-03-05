@@ -42,4 +42,16 @@ public class Cardapio {
             }
         }
     }
+
+    public void exibirProduto(int id)
+    {
+        if (mapaProdutos.isEmpty())
+        {
+            System.out.println("Cardapio esta vazio");
+        } else {
+            Produtos p = mapaProdutos.get(id);
+            System.out.printf("ID: %d | Nome: \"%s\" | Preço: R$ %.2f%n",
+                    p.getId(), p.getNomeProduto(), p.getPreco());
+        }
+    }
 }
