@@ -3,7 +3,7 @@ package org.example;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Produto {
+public class Produto {
     private int id ;
     private String nome;
     private double preco;
@@ -56,6 +56,22 @@ public abstract class Produto {
     public void setDisponibilidade(boolean disponibilidade){
         this.disponibilidade = disponibilidade;
     }
+
+    public void setNome(String nome){
+        this.nome = nome;
+    }
+
+    public void setPreco(double preco){
+        if(preco < 0){
+            throw new IllegalArgumentException("Preço invalido");
+        }
+        this.preco = preco;
+    }
+
+    public void setCategoria(String categoria){
+        this.categoria = categoria;
+    }
+    
 
     @Override
     public String toString(){

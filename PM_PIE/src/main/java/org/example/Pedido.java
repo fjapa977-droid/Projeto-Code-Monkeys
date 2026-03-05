@@ -15,10 +15,15 @@ public class Pedido {
         for(ItemPedido item : itens){
             if(item.getProduto().getId() == produto.getId()){
                 item.aumentarQuantidade(quantidade);
+                return;
             }
         }
         ItemPedido novoItem = new ItemPedido(produto, quantidade);
         itens.add(novoItem);
+    }
+
+    public void removerItem(int idProduto){
+        itens.removeIf(item -> item.getProduto().getId() == idProduto);
     }
 
     public double calcularTotal(){

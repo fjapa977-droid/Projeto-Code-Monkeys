@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Cardapio {
-    private Map<Integer, Produto> mapaProdutos = new HashMap<>();
     private Map<Integer, Produto> mapaProduto = new HashMap<>();
     //hashmap ao inves de matriz pq fica mais facil de achar o id do produto e atualizar
 
@@ -13,19 +12,19 @@ public class Cardapio {
         mapaProduto.put(p.getId(), p);
     }
 
-    private Produto buscarProduto(int id)
     Produto buscarProduto(int id)
     {
         return mapaProduto.get(id);
     }
 
-    public void atualizarProduto(int id, double preco, String nomeProduto)
+    public void atualizarProduto(int id, double preco, String nome, String categoria )
     {
         Produto idEncontrado = buscarProduto(id);
         if(idEncontrado != null)
         {
-            idEncontrado.setNomeProduto(nomeProduto);
+            idEncontrado.setNome(nome);
             idEncontrado.setPreco(preco);
+            idEncontrado.setCategoria(categoria);
         }
     }
 
@@ -40,7 +39,7 @@ public class Cardapio {
         } else {
             // Percorre todos os valores do Map e imprime
             for (Produto p : mapaProduto.values()) {
-                System.out.println("ID: " + p.getId() + " | " + p.getNomeProduto() + " - R$ " + p.getPreco());
+                System.out.println("ID: " + p.getId() + " | " + p.getNome() + " - R$ " + p.getPreco() + "|" + p.getCategoria());
             }
         }
     }
@@ -53,7 +52,7 @@ public class Cardapio {
         } else {
             Produto p = mapaProduto.get(id);
             System.out.printf("ID: %d | Nome: \"%s\" | Preço: R$ %.2f%n",
-                    p.getId(), p.getNomeProduto(), p.getPreco());
+                    p.getId(), p.getNome(), p.getPreco());
         }
     }
 }

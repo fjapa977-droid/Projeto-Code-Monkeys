@@ -5,27 +5,50 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Estoque {
-    private Map<Integer, Produto> produtos;
+    private Map<Integer, Ingredientes> ingredientes = new HashMap<>();
 
-    public Estoque()
-    {
-        produtos = new HashMap<>();
-        produtos.put(1,new Produto(1, "X-Salada", 18.90));
-        produtos.put(2,new Produto(2, "X-Bacon", 22.50));
-        produtos.put(3,new Produto(3, "X-Tudo", 28.75));
-        produtos.put(4,new Produto(4, "Batata Frita Média", 12.99));
-        produtos.put(5,new Produto(5, "Refrigerante Lata", 6.50));
+    public void adicionarIngredientes(int id, int quantidade, String nome, double peso){
+        Ingredientes novo = new Ingredientes(id,nome,quantidade,peso);
+        ingredientes.put(id, novo);
     }
 
-    public Estoque(Map<Integer, Produto> produtos) {
-        this.produtos = produtos;
+    public Ingredientes buscarIngrediente(int id){
+        return ingredientes.get(id);
     }
 
-    public Map<Integer, Produto> getProdutos() {
-        return produtos;
+    public void removerIngredientes(int id){
+        ingredientes.remove(id);
     }
 
-    public void setProdutos(Map<Integer, Produto> produtos) {
-        this.produtos = produtos;
+    public void atualizarQuantidade(int id, int novaQuantidade){
+        Ingredientes ingrediente = ingredientes.get(id);
+        if(ingrediente != null){
+            ingrediente.setQuantidade(novaQuantidade);
+        }
+    }
+
+    public void darBaixa(int id, int quantidade){
+        Ingredientes ingrediente = ingredientes.get(id);
+
+        if(ingrediente != null){
+            int novaQuantidade = ingrediente.getQuantidade() - quantidade;
+
+            if(novaQuantidade < 0){
+                System.out.println("Estoque insuficiente seu bosta");
+                return;
+            }
+            ingrediente.setQuantidade(novaQuantidade);
+        }
+    }
+
+    public void moistrarEstoque(){
+        for(Ingredientes ing : ingredientes.values()){
+            System.out.println(
+                    ing.getId() + " - " +
+                    ing.getNome() +
+                    " / quantidade: " + ing.getQuantidade() +
+                    " / peso: " + ing.getPeso()
+            );
+        }
     }
 }

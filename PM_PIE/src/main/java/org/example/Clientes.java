@@ -12,6 +12,7 @@ public class Clientes {
         this.telefone = telefone;
         this.idCliente = idCliente;
     }
+    //o filho da puta reclamou que tava colocando nomeProduto mas fez igual,verme!!-feh
 
     public int getTelefone() {
         return telefone;
