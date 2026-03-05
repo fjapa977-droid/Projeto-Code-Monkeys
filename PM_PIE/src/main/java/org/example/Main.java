@@ -8,13 +8,18 @@ public class Main {
     public static void main(String[] args) {
         int flagDoWhile = 1;
         Scanner sc = new Scanner(System.in);
+        int opcao = 0;
         Cardapio cardapio = new Cardapio();
+        //aqui estao os metodos de pagamento e o pagamento onde tem a funcao para mostrar o valor
+        Pagamentos pagamento = new Pagamentos();
+        MetodoPagamento metodo;
         System.out.printf("\tSistema iniciado \n");
+
         do {
 
-            System.out.printf("\t1-adicionar produto\n\t2-remover produto\n\t3-atualizar produto\n\t4-exibir cardapio\n\t5-sair");
+            menu();
             String entradaDeDados = sc.nextLine();
-            int opcao = Integer.parseInt(entradaDeDados);
+            opcao = Integer.parseInt(entradaDeDados);
             switch (opcao) {
                 case 1:
                     System.out.printf("Digite o id do produto: \n");
@@ -33,7 +38,7 @@ public class Main {
                     //preco
 
 
-                    cardapio.adicionarProduto(new Produtos(idMain, nomeMain, precoMain)); //cria novo id no hash
+                    cardapio.adicionarProduto(new Produto(idMain, nomeMain, precoMain)); //cria novo id no hash
                     break;
                 case 2:
                     cardapio.exibirCardapio();
@@ -42,12 +47,14 @@ public class Main {
                         entradaDeDados = sc.nextLine();
                         idMain = Integer.parseInt(entradaDeDados);
                         //mudar para if normal essa coisa
-                        String sair = entradaDeDados.trim().toLowerCase() == "sair" :break ?throw new e;
+                        //String sair = entradaDeDados.trim().toLowerCase() == "sair" : break ?throw new;
                     } catch (NumberFormatException e) {
                         System.out.printf("Erro valor digitado incorreto");
                     }
                     break;
                 case 3:
+                        //aqui embaixo tem um texte de metodos de pagamento e
+                        pagamento.maquininhaTaxa(120,metodo = new Pix());
                     break;
                 case 4:
                     break;
@@ -60,25 +67,21 @@ public class Main {
             } while (flagDoWhile == 1) ;
 
             cardapio.exibirCardapio();
-        }
+        } while(opcao != 5  );
     }
 
         static void menu()
         {
-            System.out.println("Seja bem-vido ao sistema/n");
-            System.out.println("1.Cadastrar produto");
-            System.out.println("2.Mostrar produto");
-            System.out.println("3.Tirar produto da lista");
-            System.out.println("4.Sair");
+            System.out.println("\t1-adicionar produto\n\t2-remover produto\n\t3-atualizar produto\n\t4-exibir cardapio\n\t5-sair");
         }
 
-        static void MostrarProdutos (Map<Integer,Produtos> produto)
+        static void MostrarProduto (Map<Integer,Produto> produto)
         {
             System.out.println("Menu\n");
-            for (Map.Entry<Integer,Produtos> entry : produto.entrySet())
+            for (Map.Entry<Integer,Produto> entry : produto.entrySet())
             {
                 Integer id = entry.getKey();
-                Produtos item = entry.getValue();
+                Produto item = entry.getValue();
                 System.out.println("ID " + id + " Produto: " + item.getNomeProduto());
             }
         }

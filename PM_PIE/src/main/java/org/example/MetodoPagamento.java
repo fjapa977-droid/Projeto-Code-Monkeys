@@ -1,4 +1,6 @@
 package org.example;
 
-public class MetodoPagamento {
+public interface MetodoPagamento {
+    double calcular(double valorTotal);
+
 }

@@ -1,11 +1,11 @@
 package org.example;
 
-public class Produtos {
+public class Produto {
     private int id;
     private String nomeProduto;
     private double preco;
 
-    public Produtos(int id, String nomeProduto, double preco) {
+    public Produto(int id, String nomeProduto, double preco) {
         this.id = id;
         this.nomeProduto = nomeProduto;
         this.preco = preco;
