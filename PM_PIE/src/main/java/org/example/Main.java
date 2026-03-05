@@ -8,7 +8,11 @@ public class Main {
     public static void main(String[] args) {
         int flagDoWhile = 1;
         Scanner sc = new Scanner(System.in);
+        int opcao = 0;
         Cardapio cardapio = new Cardapio();
+        //aqui estao os metodos de pagamento e o pagamento onde tem a funcao para mostrar o valor
+        Pagamentos pagamento = new Pagamentos();
+        MetodoPagamento metodo;
         System.out.printf("\tSistema iniciado \n");
 
         menuProdutos(sc, cardapio, flagDoWhile);
@@ -17,6 +21,7 @@ public class Main {
     //tirei da main principal e fiz um metodo, mais provavel q isso tire nota do que ajude
     static void menuProdutos(Scanner sc, Cardapio cardapio, int flagDoWhile)
     {
+
         do {
 
             System.out.printf("\t1-adicionar produto\n\t2-remover produto\n\t3-atualizar produto\n\t4-exibir cardapio\n\t5-sair");
@@ -40,7 +45,7 @@ public class Main {
                     //preco
 
 
-                    cardapio.adicionarProduto(new Produtos(idMain, nomeMain, precoMain)); //cria novo id no hash
+                    cardapio.adicionarProduto(new Produto(idMain, nomeMain, precoMain)); //cria novo id no hash
                     break;
                 case 2:
                     cardapio.exibirCardapio();
@@ -83,6 +88,8 @@ public class Main {
                 catch (NumberFormatException e){
                     System.out.printf("Erro no tipo de dado");
                 }//catch
+                        //aqui embaixo tem um texte de metodos de pagamento e
+                        pagamento.maquininhaTaxa(120,metodo = new Pix());
                     break;
                 case 4:
                     if(cardapio == null){
@@ -104,4 +111,7 @@ public class Main {
         cardapio.exibirCardapio();
     }
 }
+            cardapio.exibirCardapio();
+        } while(opcao != 5  );
+    }
 

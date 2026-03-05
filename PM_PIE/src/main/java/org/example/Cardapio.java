@@ -4,22 +4,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Cardapio {
-    private Map<Integer, Produtos> mapaProdutos = new HashMap<>();
+    private Map<Integer, Produto> mapaProduto = new HashMap<>();
     //hashmap ao inves de matriz pq fica mais facil de achar o id do produto e atualizar
 
-    public void adicionarProduto(Produtos p)
+    public void adicionarProduto(Produto p)
     {
-        mapaProdutos.put(p.getId(), p);
+        mapaProduto.put(p.getId(), p);
     }
 
-    Produtos buscarProduto(int id)
+    Produto buscarProduto(int id)
     {
-        return mapaProdutos.get(id);
+        return mapaProduto.get(id);
     }
 
     public void atualizarProduto(int id, double preco, String nomeProduto)
     {
-        Produtos idEncontrado = buscarProduto(id);
+        Produto idEncontrado = buscarProduto(id);
         if(idEncontrado != null)
         {
             idEncontrado.setNomeProduto(nomeProduto);
@@ -29,15 +29,15 @@ public class Cardapio {
 
     public void removerProduto(int id)
     {
-        mapaProdutos.remove(id);
+        mapaProduto.remove(id);
     }
 
     public void exibirCardapio() {
-        if (mapaProdutos.isEmpty()) {
+        if (mapaProduto.isEmpty()) {
             System.out.println("O cardápio está vazio.");
         } else {
             // Percorre todos os valores do Map e imprime
-            for (Produtos p : mapaProdutos.values()) {
+            for (Produto p : mapaProduto.values()) {
                 System.out.println("ID: " + p.getId() + " | " + p.getNomeProduto() + " - R$ " + p.getPreco());
             }
         }
