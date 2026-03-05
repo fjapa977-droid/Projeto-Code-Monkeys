@@ -1,7 +1,7 @@
 package org.example;
 
 import java.util.List;
-/*
+
 public class Pagamentos {
 
     public void maquininhaTaxa(double valorpago,MetodoPagamento metodo)
@@ -28,4 +28,3 @@ public class Pagamentos {
     }*/
 
 }
-*/
