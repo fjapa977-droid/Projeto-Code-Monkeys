@@ -56,7 +56,7 @@ public class Produto {
     public void setDisponibilidade(boolean disponibilidade){
         this.disponibilidade = disponibilidade;
     }
-
+//set nao pode ser public, pois comprometeria a seguranca(depende da funcao mas e melhor cuidar a segurança)
     public void setNome(String nome){
         this.nome = nome;
     }

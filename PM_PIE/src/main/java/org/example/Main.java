@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class Main {
 //criei esses metodos pra nao ter que ficar repetindo o parse -feh
     static int lerInt(Scanner sc){
+
+
         while(true){
             try {
                 return Integer.parseInt(sc.nextLine());
@@ -25,7 +27,9 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        Estoque estoque = new Estoque();
         Cardapio cardapio = new Cardapio();
+        carregarEstoque(cardapio,estoque);
         System.out.println("\tSistema iniciado");
 
         menuInicial(sc, cardapio);
@@ -49,7 +53,7 @@ public class Main {
                 case 2: menuProdutos(sc, cardapio); break;
                 case 3:
                 case 4:
-                case 5: System.out.println("Finalizando...");
+                case 5: System.out.println("Finalizando..."); break;
                 default: System.out.println("Escreve porra direito"); break;
             }
         }while(opcao!=5);
@@ -151,6 +155,15 @@ public class Main {
 
                 produto.adicionarIngrediente(idIng, qtd);
             }
+
+    }
+
+    static void carregarEstoque(Cardapio cardapio, Estoque estoque)
+    {
+        for (Produto p: estoque.getProdutos().values())
+        {
+            cardapio.adicionarProduto(p);
+        }
 
     }
 }
