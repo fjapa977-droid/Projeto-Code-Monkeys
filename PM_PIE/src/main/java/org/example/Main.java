@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class Main {
 //criei esses metodos pra nao ter que ficar repetindo o parse -feh
     static int lerInt(Scanner sc){
+
+
         while(true){
             try {
                 return Integer.parseInt(sc.nextLine());
@@ -25,7 +27,9 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        Estoque estoque = new Estoque();
         Cardapio cardapio = new Cardapio();
+        carregarEstoque(cardapio,estoque);
         System.out.println("\tSistema iniciado");
 
         menuProdutos(sc, cardapio);
@@ -103,6 +107,15 @@ public class Main {
 
         cardapio.atualizarProduto(id,preco,nome,categoria);
         cardapio.exibirProduto(id);
+    }
+
+    static void carregarEstoque(Cardapio cardapio, Estoque estoque)
+    {
+        for (Produto p: estoque.getProdutos().values())
+        {
+            cardapio.adicionarProduto(p);
+        }
+
     }
 }
 
