@@ -55,14 +55,8 @@ public class Cardapio {
                     p.getId(), p.getNome(), p.getPreco());
         }
     }
-    public void adicionarProdutoPedido(int id)
-    {
-        if (mapaProduto.isEmpty())
-        {
-            System.out.println("Cardapio esta vazio");
-        } else {
-            adicionarProduto(buscarProduto(id));
-        }
-    }
 
+    public Map<Integer, Produto> getMapaProduto() {
+        return mapaProduto;
+    }
 }

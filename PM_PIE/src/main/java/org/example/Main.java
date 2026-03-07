@@ -5,8 +5,6 @@ import java.util.Scanner;
 public class Main {
 //criei esses metodos pra nao ter que ficar repetindo o parse -feh
     static int lerInt(Scanner sc){
-
-
         while(true){
             try {
                 return Integer.parseInt(sc.nextLine());
@@ -24,18 +22,23 @@ public class Main {
             }
         }
     }
-
+    static String lerString(Scanner sc)
+    {
+        String entrada = sc.nextLine();
+        return (entrada != null) ? entrada.trim().toLowerCase() : "";
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Estoque estoque = new Estoque();
         Cardapio cardapio = new Cardapio();
+        Pedido pedido = new Pedido();
         carregarEstoque(cardapio,estoque);
         System.out.println("\tSistema iniciado");
 
-        menuInicial(sc, cardapio);
+        menuInicial(sc, cardapio, pedido);
         sc.close();
     }
-    static void menuInicial(Scanner sc, Cardapio cardapio){
+    static void menuInicial(Scanner sc, Cardapio cardapio, Pedido pedido){
         int opcao;
         do {
             System.out.println(
@@ -51,7 +54,7 @@ public class Main {
             switch (opcao) {
                 case 1:
                 case 2: menuProdutos(sc, cardapio); break;
-                case 3:
+                case 3: fazerPedido(sc, cardapio, pedido); break;
                 case 4:
                 case 5: System.out.println("Finalizando..."); break;
                 default: System.out.println("Escreve porra direito"); break;
@@ -164,7 +167,21 @@ public class Main {
         {
             cardapio.adicionarProduto(p);
         }
-
+    }
+    static void fazerPedido(Scanner sc, Cardapio cardapio, Pedido pedido)
+    {
+        cardapio.exibirCardapio();
+        System.out.println("Digite o id dos produtos do cardapio para adicionar ao pedido");
+        String saida;
+        do{
+            int id= lerInt(sc);
+            System.out.println("Digite a quantidade do produto escolhido");
+            int qtd = lerInt(sc);
+            pedido.adicionarProdutoPedido(id,qtd, cardapio.getMapaProduto());
+            pedido.mostrarPedido();
+            System.out.println("Se concluir seu pedido digite \"sair\", se deseja continuar adicionando produtos ao pedido digite \"continuar\"");
+            saida = lerString(sc);
+        }while (!saida.equals("sair"));
     }
 }
 

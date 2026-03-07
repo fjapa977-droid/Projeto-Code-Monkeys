@@ -10,9 +10,10 @@ public class Pedido {
 
     private List<ItemPedido> itens;
 
-    private Pedido(){
+    public Pedido(){
         itens = new ArrayList<>();
     }
+
 
     public void adicionarItem(Produto produto, int quantidade){
         for(ItemPedido item : itens){
@@ -39,15 +40,25 @@ public class Pedido {
 
         return total;
     }
-
+    public void mostrarPedido() {
+        if (itens.isEmpty())
+        {
+            System.out.println("Lista de itens vazia");
+            return;
+        }
+        for(ItemPedido item : itens)
+        {
+            System.out.println(item);
+        }
+    }
     public void adicionarProdutoPedido(int id, int quantidade, Map<Integer, Produto> cardapio)
     {
-        if (cardapio.isEmpty())
+        /*if (cardapio.isEmpty())
         {
             System.out.println("Cardapio esta vazio");
-        } else {
+        } else {*/
             adicionarItem(cardapio.get(id), quantidade);
-        }
+        //}
     }
 
 }
