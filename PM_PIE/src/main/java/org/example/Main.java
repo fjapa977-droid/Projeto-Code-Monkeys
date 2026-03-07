@@ -28,10 +28,32 @@ public class Main {
         Cardapio cardapio = new Cardapio();
         System.out.println("\tSistema iniciado");
 
-        menuProdutos(sc, cardapio);
+        menuInicial(sc, cardapio);
         sc.close();
     }
-
+    static void menuInicial(Scanner sc, Cardapio cardapio){
+        int opcao;
+        do {
+            System.out.println(
+                    """
+                            1-abrir caixa
+                            2-menu de produtos
+                            3-fazer pedido
+                            4-fechar caixa
+                            5-finalizar programa        
+                            """
+            );
+            opcao = lerInt(sc);
+            switch (opcao) {
+                case 1:
+                case 2: menuProdutos(sc, cardapio); break;
+                case 3:
+                case 4:
+                case 5: System.out.println("Finalizando...");
+                default: System.out.println("Escreve porra direito"); break;
+            }
+        }while(opcao!=5);
+    }
     //tirei flagdowhile porraa nem no 1 semestre a gente fez isso - feh
     static void menuProdutos(Scanner sc, Cardapio cardapio) {
         int opcao;// sem o parse pq sa colocasse letra dava erro ISSO AQUI NAO É BERENISE
