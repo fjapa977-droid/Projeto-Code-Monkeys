@@ -40,7 +40,7 @@ public class Main {
                             2-menu de produtos
                             3-fazer pedido
                             4-fechar caixa
-                            5-finalizar programa        
+                            5-finalizar programa
                             """
             );
             opcao = lerInt(sc);
@@ -109,22 +109,49 @@ public class Main {
     }
 
     static void atualizarProduto(Scanner sc, Cardapio cardapio){
-        cardapio.exibirCardapio();
+        System.out.println("""
+                1-Atualizar produto
+                2-Atualizar ingredientes
+                """);
+            if (lerInt(sc) == 1){
+                cardapio.exibirCardapio();
 
-        System.out.println("digite o id: ");
-        int id = lerInt(sc);
+                System.out.println("digite o id: ");
+                int id = lerInt(sc);
 
-        System.out.println("novo nome");
-        String nome = sc.nextLine().trim();
+                System.out.println("novo nome");
+                String nome = sc.nextLine().trim();
 
-        System.out.println("novo preco");
-        double preco = lerDouble(sc);
+                System.out.println("novo preco");
+                double preco = lerDouble(sc);
 
-        System.out.println("nova categoria");
-        String categoria = sc.nextLine().trim();
+                System.out.println("nova categoria");
+                String categoria = sc.nextLine().trim();
 
-        cardapio.atualizarProduto(id,preco,nome,categoria);
-        cardapio.exibirProduto(id);
+                cardapio.atualizarProduto(id,preco,nome,categoria);
+                cardapio.exibirProduto(id);
+            }else {
+                cardapio.exibirCardapio();
+
+                System.out.println("Digite o id do produto:");
+                int id = lerInt(sc);
+
+                Produto produto = cardapio.buscarProduto(id);
+
+                if(produto == null){
+                    System.out.println("Produto não encontrado");
+                    return;
+                }
+
+                System.out.println("Id do ingrediente:");
+                int idIng = lerInt(sc);
+
+                System.out.println("Quantidade usada:");
+                int qtd = lerInt(sc);
+
+                produto.adicionarIngrediente(idIng, qtd);
+            }
+
     }
 }
 

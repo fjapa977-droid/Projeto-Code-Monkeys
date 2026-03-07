@@ -25,7 +25,7 @@ public class Produto {
         this.disponibilidade = true;
     }
 
-    public void adicionaringrediente(int idIngrediente, int quantidade){
+    public void adicionarIngrediente(int idIngrediente, int quantidade){
         ingredientes.put(idIngrediente, quantidade);
     }
 
