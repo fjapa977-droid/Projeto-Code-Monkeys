@@ -3,6 +3,9 @@ package org.example;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Pedido {
 
     private List<ItemPedido> itens;
@@ -36,4 +39,15 @@ public class Pedido {
 
         return total;
     }
+
+    public void adicionarProdutoPedido(int id, int quantidade, Map<Integer, Produto> cardapio)
+    {
+        if (cardapio.isEmpty())
+        {
+            System.out.println("Cardapio esta vazio");
+        } else {
+            adicionarItem(cardapio.get(id), quantidade);
+        }
+    }
+
 }

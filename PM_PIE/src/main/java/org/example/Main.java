@@ -49,7 +49,7 @@ public class Main {
                 case 2: menuProdutos(sc, cardapio); break;
                 case 3:
                 case 4:
-                case 5: System.out.println("Finalizando...");
+                case 5: System.out.println("Finalizando..."); break;
                 default: System.out.println("Escreve porra direito"); break;
             }
         }while(opcao!=5);
