@@ -42,7 +42,7 @@ public class Main {
                     2-remover produto
                     3-atualizar produto
                     4-exibir cardapio
-                    5-sair"
+                    -sair"
                     """);
             opcao = lerInt(sc);
 
