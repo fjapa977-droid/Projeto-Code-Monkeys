@@ -41,7 +41,6 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Estoque estoque = new Estoque();
         Cardapio cardapio = new Cardapio();
-        double totalCaixa = 0;
         Caixa caixa = new Caixa();
         //aqui ta criando so um cliente
         int idCLiente = (int)(Math.random()*10000);
@@ -50,10 +49,10 @@ public class Main {
         carregarEstoque(cardapio,estoque);
         System.out.println("\tSistema iniciado");
 
-        menuInicial(sc, cardapio, pedido, estoque, caixa, totalCaixa);
+        menuInicial(sc, cardapio, pedido, estoque, caixa, cliente);
         sc.close();
     }
-    static void menuInicial(Scanner sc, Cardapio cardapio, Map<Integer,Pedido> pedido, Estoque estoque, Caixa caixa, double totalCaixa){
+    static void menuInicial(Scanner sc, Cardapio cardapio, Map<Integer,Pedido> pedido, Estoque estoque, Caixa caixa, Clientes cliente){
         int opcao;
         do {
             System.out.println(
@@ -78,19 +77,19 @@ public class Main {
                 case 3:
                     if(lerCaixa(caixa))
                     {
-                        fazerPedido(fazerPedido(sc, cardapio, pedido, estoque,cliente);
+                        fazerPedido(sc, cardapio, pedido, estoque,cliente);
                     } break;
                 case 4:
                     if (lerCaixa(caixa))
                     {
-                        verCaixaAtual(pedido, totalCaixa);
+                        verCaixaAtual(pedido, caixa);
                     } break;
                 case 5: menuEstoque(sc, estoque);break;
 
                 case 6:
                     if(lerCaixa(caixa))
                     {
-                        double faturamento = calcularCaixa(pedido, totalCaixa);
+                        double faturamento = calcularFaturamento(pedido);
                         caixa.fecharCaixa(faturamento);
 
                     } break;
@@ -168,13 +167,13 @@ public class Main {
                 int id = lerInt(sc);
 
                 System.out.println("novo nome");
-                String nome = sc.nextLine().trim();
+                String nome = lerString(sc);
 
                 System.out.println("novo preco");
                 double preco = lerDouble(sc);
 
                 System.out.println("nova categoria");
-                String categoria = sc.nextLine().trim();
+                String categoria = lerString(sc);
 
                 cardapio.atualizarProduto(id,preco,nome,categoria);
                 cardapio.exibirProduto(id);
@@ -397,15 +396,16 @@ public class Main {
         double valorInicial = lerDouble(sc);
         caixa.abrir(valorInicial);
     }
-
-    static double calcularCaixa(Map<Integer,Pedido> pedido, double totalCaixa)
+    static double calcularFaturamento(Map<Integer,Pedido> pedido)
     {
-        totalCaixa = pedido.values().stream().mapToDouble(Pedido::calcularTotal).sum();
-        return totalCaixa;
+        return pedido.values().stream().mapToDouble(Pedido::calcularTotal).sum();
     }
-    static void verCaixaAtual(Map<Integer,Pedido> pedido, double totalCaixa)
+
+    static void verCaixaAtual(Map<Integer,Pedido> pedido, Caixa caixa)
     {
-        System.out.println("Caixa atual no valor de R$" + calcularCaixa(pedido, totalCaixa));
+        double faturamento = calcularFaturamento(pedido);
+        double caixaAtual = caixa.getCaixaInicial() + faturamento;
+        System.out.println("Caixa atual no valor de R$" + caixaAtual);
     }
 }
 

@@ -20,7 +20,7 @@ public class Caixa {
 
     public void fecharCaixa(double totalVendas)
     {
-        double totalFinal = caixaFinal + totalVendas;
+        double totalFinal = this.caixaInicial + totalVendas;
         System.out.println("Caixa iniciado com R$" + this.caixaInicial);
         System.out.println("Valor total das vendas R$" + totalVendas);
         System.out.println("Valor final do caixa R$" + totalFinal);
@@ -31,5 +31,9 @@ public class Caixa {
 
     public boolean isAberto() {
         return aberto;
+    }
+
+    public double getCaixaInicial() {
+        return caixaInicial;
     }
 }
