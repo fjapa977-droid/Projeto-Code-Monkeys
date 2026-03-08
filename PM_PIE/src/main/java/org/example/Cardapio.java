@@ -55,4 +55,24 @@ public class Cardapio {
                     p.getId(), p.getNome(), p.getPreco());
         }
     }
+
+    public void buscarPorCategoria(String categoria){
+        for (Produto p : mapaProduto.values()){
+            if (p.getCategoria().equalsIgnoreCase(categoria)){
+                System.out.println(p);
+            }
+        }
+    }
+
+    public void buscarPorNome(String nome){
+        for(Produto p : mapaProduto.values()){
+            if(p.getNome().toLowerCase().contains(nome.toLowerCase())){
+                System.out.println(p);
+            }
+        }
+    }
+
+    public Map<Integer, Produto> getMapaProduto() {
+        return mapaProduto;
+    }
 }
