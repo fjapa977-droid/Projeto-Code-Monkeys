@@ -50,10 +50,10 @@ public class Main {
         carregarEstoque(cardapio,estoque);
         System.out.println("\tSistema iniciado");
 
-        menuInicial(sc, cardapio, pedido, estoque, caixa, totalCaixa);
+        menuInicial(sc, cardapio, pedido, estoque, caixa, totalCaixa, cliente);
         sc.close();
     }
-    static void menuInicial(Scanner sc, Cardapio cardapio, Map<Integer,Pedido> pedido, Estoque estoque, Caixa caixa, double totalCaixa){
+    static void menuInicial(Scanner sc, Cardapio cardapio, Map<Integer,Pedido> pedido, Estoque estoque, Caixa caixa, double totalCaixa, Clientes cliente){
         int opcao;
         do {
             System.out.println(
