@@ -3,7 +3,6 @@ package org.example;
 import java.util.*;
 
 public class Main {
-//criei esses metodos pra nao ter que ficar repetindo o parse -feh
     static int lerInt(Scanner sc){
         while(true){
             try {
@@ -42,6 +41,9 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Estoque estoque = new Estoque();
         Cardapio cardapio = new Cardapio();
+        double totalCaixa = 0;
+        Caixa caixa = new Caixa();
+        //aqui ta criando so um cliente
         int idCLiente = (int)(Math.random()*10000);
         Clientes cliente = new Clientes("cliente-" +idCLiente,"",0,idCLiente);
         Map<Integer,Pedido> pedido = new HashMap<>();
@@ -51,7 +53,7 @@ public class Main {
         menuInicial(sc, cardapio, pedido, estoque, caixa, totalCaixa);
         sc.close();
     }
-    static void menuInicial(Scanner sc, Cardapio cardapio, Map<Integer,Pedido> pedido, Estoque estoque, Caixa caixa, double totalCaixa, Clientes cliente){
+    static void menuInicial(Scanner sc, Cardapio cardapio, Map<Integer,Pedido> pedido, Estoque estoque, Caixa caixa, double totalCaixa){
         int opcao;
         do {
             System.out.println(
@@ -82,12 +84,15 @@ public class Main {
                     if (lerCaixa(caixa))
                     {
                         verCaixaAtual(pedido, totalCaixa);
-                    }
+                    } break;
                 case 5: menuEstoque(sc, estoque);break;
+
                 case 6:
                     if(lerCaixa(caixa))
                     {
-                        caixa.fecharCaixa(totalCaixa);
+                        double faturamento = calcularCaixa(pedido, totalCaixa);
+                        caixa.fecharCaixa(faturamento);
+
                     } break;
                 case 7: MostrarPedidos(pedido); break;
                 case 8: System.out.println("Finalizando..."); break;
