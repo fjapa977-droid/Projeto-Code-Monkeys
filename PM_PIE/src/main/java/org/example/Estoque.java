@@ -54,7 +54,7 @@ public class Estoque {
         }
     }
 
-    public void moistrarEstoque(){
+    public void mostrarEstoque(){
         for(Ingredientes ing : ingredientes.values()){
             System.out.println(
                     ing.getId() + " - " +

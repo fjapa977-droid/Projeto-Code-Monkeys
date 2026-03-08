@@ -9,7 +9,7 @@ public class Main {
             try {
                 return Integer.parseInt(sc.nextLine());
             }catch (NumberFormatException e){
-                System.out.println("digite um umero inteiro");
+                System.out.println("digite um número inteiro");
             }
         }
     }
@@ -18,7 +18,7 @@ public class Main {
             try {
                 return Double.parseDouble(sc.nextLine());
             }catch (NumberFormatException e){
-                System.out.println("digite um numero quebraado: ");
+                System.out.println("Digite algum preço ");
             }
         }
     }
@@ -31,7 +31,8 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Estoque estoque = new Estoque();
         Cardapio cardapio = new Cardapio();
-        Clientes cliente = new Clientes("cliente","",0,1);
+        int idCLiente = (int)(Math.random()*10000);
+        Clientes cliente = new Clientes("cliente-" +idCLiente,"",0,idCLiente);
         Pedido pedido = new Pedido(cliente);
         carregarEstoque(cardapio,estoque);
         System.out.println("\tSistema iniciado");
@@ -45,10 +46,11 @@ public class Main {
             System.out.println(
                     """
                             1-abrir caixa
-                            2-menu de produtos
+                            2-cardapio
                             3-fazer pedido
                             4-fechar caixa
-                            5-finalizar programa
+                            5-estoque
+                            6-finalizar programa
                             """
             );
             opcao = lerInt(sc);
@@ -57,22 +59,23 @@ public class Main {
                 case 2: menuProdutos(sc, cardapio); break;
                 case 3: fazerPedido(sc, cardapio, pedido, estoque); break;
                 case 4:
-                case 5: System.out.println("Finalizando..."); break;
-                default: System.out.println("Escreve porra direito"); break;
+                case 5: menuEstoque(sc, estoque);
+                case 6: System.out.println("Finalizando..."); break;
+                default: System.out.println("Opçao invalida"); break;
             }
-        }while(opcao!=5);
+        }while(opcao!=6);
     }
-    //tirei flagdowhile porraa nem no 1 semestre a gente fez isso - feh
+
     static void menuProdutos(Scanner sc, Cardapio cardapio) {
-        int opcao;// sem o parse pq sa colocasse letra dava erro ISSO AQUI NAO É BERENISE
+        int opcao;
         do {
-            //nao sei pq tava dando \n fdp
             System.out.println("""
                     1-adicionar produto
                     2-remover produto
                     3-atualizar produto
                     4-exibir cardapio
-                    -sair"
+                    5-buscar produto
+                    6-sair"
                     """);
             opcao = lerInt(sc);
 
@@ -81,11 +84,12 @@ public class Main {
                 case 2 -> removerProduto(sc, cardapio);
                 case 3 -> atualizarProduto(sc, cardapio);
                 case 4 -> cardapio.exibirCardapio();
-                case 5 -> System.out.println("Saindo...");
+                case 5 -> buscarProduto(sc, cardapio);
+                case 6 -> System.out.println("Saindo...");
 
-                default -> System.out.println("escreve direito porra");
+                default -> System.out.println("Opçao invalida!");
             }
-        }while (opcao != 5);
+        }while (opcao != 6);
     }
     static void adicionarProduto(Scanner sc, Cardapio cardapio){
         System.out.println("Digite o id: ");
@@ -105,7 +109,7 @@ public class Main {
 
     static void removerProduto(Scanner sc, Cardapio cardapio){
         cardapio.exibirCardapio();
-        System.out.println("Digite o id do produti");
+        System.out.println("Digite o id do produto");
 
         try{
             int id = lerInt(sc);
@@ -138,7 +142,7 @@ public class Main {
 
                 cardapio.atualizarProduto(id,preco,nome,categoria);
                 cardapio.exibirProduto(id);
-            }else {
+            }else if(lerInt(sc) == 2){
                 cardapio.exibirCardapio();
 
                 System.out.println("Digite o id do produto:");
@@ -158,6 +162,8 @@ public class Main {
                 int qtd = lerInt(sc);
 
                 produto.adicionarIngrediente(idIng, qtd);
+            }else {
+                System.out.println("Opçao invalida");
             }
 
     }
@@ -171,19 +177,160 @@ public class Main {
     }
     static void fazerPedido(Scanner sc, Cardapio cardapio, Pedido pedido, Estoque estoque)
     {
-        cardapio.exibirCardapio();
-        System.out.println("Digite o id dos produtos do cardapio para adicionar ao pedido");
-        String saida;
+        int opcao;
+
         do{
-            int id= lerInt(sc);
-            System.out.println("Digite a quantidade do produto escolhido");
-            int qtd = lerInt(sc);
-            pedido.adicionarProdutoPedido(id,qtd, cardapio.getMapaProduto());
-            pedido.mostrarPedido();
-            System.out.println("Se concluir seu pedido digite \"sair\", se deseja continuar adicionando produtos ao pedido digite \"continuar\"");
-            saida = lerString(sc);
-        }while (!saida.equals("sair"));
+            System.out.println("""
+                    1-adicionar produto
+                    2-remover produto do pedido
+                    3-finalizar pedido
+                    """);
+            opcao = lerInt(sc);
+
+            switch (opcao){
+                case 1 ->{
+                    cardapio.exibirCardapio();
+
+                    System.out.println("digite o id do produto: ");
+                    int id = lerInt(sc);
+
+                    System.out.println("digite a quantidade: ");
+                    int qtd = lerInt(sc);
+
+                    pedido.adicionarProdutoPedido(id,qtd, cardapio.getMapaProduto());
+
+                    pedido.mostrarPedido();
+                }
+
+                case 2 -> {
+                    pedido.mostrarPedido();
+
+                    System.out.println("digite o id do produto pra remover");
+                    int id = lerInt(sc);
+
+                    pedido.removerItem(id);
+
+                    pedido.mostrarPedido();
+                }
+
+                case 3 -> System.out.println("fechando pedido");
+                default -> System.out.println("opçao invalida");
+            }
+        }while (opcao != 3);
         pedido.atualizarEstoque(estoque);
+
+        Pagamentos pagamentos = new Pagamentos();
+        System.out.println("""
+                Escolha o metodo de pagamento
+                1- pix
+                2- credito
+                3- debito
+                4- dinheiro
+                """);
+
+        int opcaoPagamento = lerInt(sc);
+
+        MetodoPagamento metodo = null;
+
+        switch (opcaoPagamento){
+            case 1 -> metodo = new Pix();
+            case 2 -> metodo = new Credito();
+            case 3 -> metodo = new Debito();
+            case 4 -> metodo = new Dinheiro();
+            default -> System.out.println("metodo invalido");
+        }
+
+        if(metodo != null){
+            pagamentos.maquininhaTaxa(pedido, metodo);
+        }
+    }
+
+    static void buscarProduto(Scanner sc, Cardapio cardapio){
+        System.out.println("""
+                Buscar produto por:
+                1-Nome
+                2-Categoria
+                """);
+        int opcao = lerInt(sc);
+
+        if(opcao == 1){
+            System.out.println("Digite o nome do produto");
+            String nome = sc.nextLine();
+
+            cardapio.buscarPorNome(nome);
+        } else if (opcao == 2) {
+            System.out.println("Digite a categoria");
+            String categoria = sc.nextLine();
+
+            cardapio.buscarPorcCategoria(categoria);
+        }else {
+            System.out.println("Opção invalida");
+        }
+    }
+    static void menuEstoque(Scanner sc, Estoque estoque){
+        int opcao;
+        do{
+            System.out.println("""
+                1-adicionar ingrediente
+                2-buscar ingrediente
+                3-remover ingrediente
+                4-atualizar quantidade
+                5-mostrar estoque
+                6-voltar
+                """);
+
+            opcao = lerInt(sc);
+
+            switch (opcao){
+
+                case 1 ->{
+                    System.out.println("id: ");
+                    int id = lerInt(sc);
+
+                    System.out.println("nome: ");
+                    String nome = sc.nextLine();
+
+                    System.out.println("quantidade: ");
+                    int qtd = lerInt(sc);
+
+                    System.out.println("peso: ");
+                    double peso = lerDouble(sc);
+
+                    estoque.adicionarIngredientes(id,qtd,nome,peso);
+                }
+
+                case 2 ->{
+                    System.out.println("id: ");
+                    int id = lerInt(sc);
+
+                    Ingredientes ing = estoque.buscarIngrediente(id);
+
+                    if(ing != null)
+                        System.out.println(ing.getNome());
+                    else
+                        System.out.println("Ingrediente nao encontrado");
+                }
+
+                case 3 ->{
+                    System.out.println("id: ");
+                    int id = lerInt(sc);
+
+                    estoque.removerIngredientes(id);
+                }
+
+                case 4 -> {
+                    System.out.println("id: ");
+                    int id = lerInt(sc);
+
+                    System.out.println("nova quantidade: ");
+                    int qtd = lerInt(sc);
+
+                    estoque.atualizarQuantidade(id,qtd);
+                }
+
+                case 5 -> estoque.mostrarEstoque();
+            }
+        }while(opcao != 6);
     }
 }
 
