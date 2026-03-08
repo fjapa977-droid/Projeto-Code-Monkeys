@@ -1,6 +1,8 @@
 package org.example;
 
 import java.util.Scanner;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Main {
 //criei esses metodos pra nao ter que ficar repetindo o parse -feh
@@ -33,14 +35,14 @@ public class Main {
         Cardapio cardapio = new Cardapio();
         int idCLiente = (int)(Math.random()*10000);
         Clientes cliente = new Clientes("cliente-" +idCLiente,"",0,idCLiente);
-        Pedido pedido = new Pedido(cliente);
+        Map<Integer,Pedido> pedido = new HashMap<>();
         carregarEstoque(cardapio,estoque);
         System.out.println("\tSistema iniciado");
 
-        menuInicial(sc, cardapio, pedido, estoque);
+        menuInicial(sc, cardapio, pedido, estoque,cliente);
         sc.close();
     }
-    static void menuInicial(Scanner sc, Cardapio cardapio, Pedido pedido, Estoque estoque){
+    static void menuInicial(Scanner sc, Cardapio cardapio, Map<Integer,Pedido> pedido, Estoque estoque,Clientes cliente){
         int opcao;
         do {
             System.out.println(
@@ -50,17 +52,22 @@ public class Main {
                             3-fazer pedido
                             4-fechar caixa
                             5-estoque
-                            6-finalizar programa
+                            6-
+                            7- Mostrar os pedidos
+                            8-finalizar programa
                             """
             );
             opcao = lerInt(sc);
             switch (opcao) {
                 case 1:
                 case 2: menuProdutos(sc, cardapio); break;
-                case 3: fazerPedido(sc, cardapio, pedido, estoque); break;
+                case 3: fazerPedido(sc, cardapio, pedido, estoque,cliente); break;
                 case 4:
                 case 5: menuEstoque(sc, estoque);break;
-                case 6: System.out.println("Finalizando..."); break;
+                case 6: break;
+                case 7: MostrarPedidos(pedido); break;
+                case 8:
+                    System.out.println("Finalizando..."); break;
                 default: System.out.println("Opçao invalida"); break;
             }
         }while(opcao!=6);
@@ -176,10 +183,10 @@ public class Main {
             cardapio.adicionarProduto(p);
         }
     }
-    static void fazerPedido(Scanner sc, Cardapio cardapio, Pedido pedido, Estoque estoque)
+    static void fazerPedido(Scanner sc, Cardapio cardapio, Map<Integer,Pedido> pedidos, Estoque estoque,Clientes cliente)
     {
         int opcao;
-
+        Pedido pedido = new Pedido(new Clientes(cliente.getNomeCliente(),cliente.getEndereco(),cliente.getTelefone(),cliente.getIdCliente()));
         do{
             System.out.println("""
                     1-adicionar produto
@@ -192,6 +199,7 @@ public class Main {
                 case 1 ->{
                     cardapio.exibirCardapio();
 
+
                     System.out.println("digite o id do produto: ");
                     int id = lerInt(sc);
 
@@ -201,11 +209,10 @@ public class Main {
                     Produto produto = cardapio.getMapaProduto().get(id);
                     if(produto == null){
                         System.out.println("produto nao existe");
-                        return;
+                        break;
                     }
 
                     pedido.adicionarProdutoPedido(id,qtd, cardapio.getMapaProduto());
-
                     pedido.mostrarPedido();
                 }
 
@@ -220,7 +227,10 @@ public class Main {
                     pedido.mostrarPedido();
                 }
 
-                case 3 -> System.out.println("fechando pedido");
+                case 3 -> {
+                    System.out.println("fechando pedido");
+                    pedidos.put(pedidos.size()+1,pedido);
+                }
                 default -> System.out.println("opçao invalida");
             }
         }while (opcao != 3);
@@ -274,6 +284,20 @@ public class Main {
             System.out.println("Opção invalida");
         }
     }
+
+    static void MostrarPedidos(Map<Integer,Pedido> pedidos)
+    {
+        if (pedidos.isEmpty()) {
+            System.out.println("Nenhum pedido cadastrado");
+            return;
+        }
+
+        for (Pedido p : pedidos.values()) {
+            p.mostrarPedido(); // chama o metodo do pedido
+            System.out.println("-------------------");
+        }
+    }
+
     static void menuEstoque(Scanner sc, Estoque estoque){
         int opcao;
         do{

@@ -1,8 +1,5 @@
 package org.example;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +10,7 @@ public class Pedido {
 
     public Pedido(Clientes cliente){
         this.cliente = cliente;
-        itens = new HashMap<>();
+        this.itens = new HashMap<>();
     }
 
     public void adicionarItem(Produto produto, int quantidade){
@@ -55,6 +52,8 @@ public class Pedido {
                             p.getProduto().getPreco(),
                             p.getQuantidade(),
                             p.getProduto().getPreco() * p.getQuantidade());
+
+
                 }
     }
     public void adicionarProdutoPedido(int id, int quantidade, Map<Integer, Produto> cardapio)
