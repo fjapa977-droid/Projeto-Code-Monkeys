@@ -9,7 +9,7 @@ public class Main {
             try {
                 return Integer.parseInt(sc.nextLine());
             }catch (NumberFormatException e){
-                System.out.println("digite um umero inteiro");
+                System.out.println("digite um numero inteiro");
             }
         }
     }
@@ -179,7 +179,7 @@ public class Main {
             System.out.println("Digite a quantidade do produto escolhido");
             int qtd = lerInt(sc);
             pedido.adicionarProdutoPedido(id,qtd, cardapio.getMapaProduto());
-            pedido.mostrarPedido();
+            pedido.mostrarPedido(qtd);
             System.out.println("Se concluir seu pedido digite \"sair\", se deseja continuar adicionando produtos ao pedido digite \"continuar\"");
             saida = lerString(sc);
         }while (!saida.equals("sair"));
