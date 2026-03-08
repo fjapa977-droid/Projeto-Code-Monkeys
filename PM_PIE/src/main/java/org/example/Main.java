@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -32,14 +34,14 @@ public class Main {
         Estoque estoque = new Estoque();
         Cardapio cardapio = new Cardapio();
         Clientes cliente = new Clientes("cliente","",0,1);
-        Pedido pedido = new Pedido(cliente);
+        Map<Integer,Pedido> pedido = new HashMap<>();
         carregarEstoque(cardapio,estoque);
         System.out.println("\tSistema iniciado");
 
         menuInicial(sc, cardapio, pedido, estoque);
         sc.close();
     }
-    static void menuInicial(Scanner sc, Cardapio cardapio, Pedido pedido, Estoque estoque){
+    static void menuInicial(Scanner sc, Cardapio cardapio, Map<Integer,Pedido> pedido, Estoque estoque){
         int opcao;
         do {
             System.out.println(
@@ -169,8 +171,9 @@ public class Main {
             cardapio.adicionarProduto(p);
         }
     }
-    static void fazerPedido(Scanner sc, Cardapio cardapio, Pedido pedido, Estoque estoque)
+    static void fazerPedido(Scanner sc, Cardapio cardapio, Map<Integer,Pedido> pedidos, Estoque estoque)
     {
+        Pedido pedido = new Pedido(new Clientes("cliente","",0,1));
         cardapio.exibirCardapio();
         System.out.println("Digite o id dos produtos do cardapio para adicionar ao pedido");
         String saida;
@@ -184,6 +187,7 @@ public class Main {
             saida = lerString(sc);
         }while (!saida.equals("sair"));
         pedido.atualizarEstoque(estoque);
+        pedidos.put(pedidos.size()+1, pedido);
     }
 }
 
