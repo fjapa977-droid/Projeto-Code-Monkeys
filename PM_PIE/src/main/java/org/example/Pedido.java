@@ -32,7 +32,6 @@ public class Pedido {
     public void removerItem(int idProduto){
         itens.remove(idProduto);
     }
-
     public double calcularTotal(){
 
         double total = 0;
@@ -59,12 +58,7 @@ public class Pedido {
     }
     public void adicionarProdutoPedido(int id, int quantidade, Map<Integer, Produto> cardapio)
     {
-        /*if (cardapio.isEmpty())
-        {
-            System.out.println("Cardapio esta vazio");
-        } else {*/
             adicionarItem(cardapio.get(id), quantidade);
-        //}
     }
 
     public Clientes getCliente(){
