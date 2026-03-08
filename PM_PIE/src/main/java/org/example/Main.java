@@ -3,7 +3,6 @@ package org.example;
 import java.util.*;
 
 public class Main {
-//criei esses metodos pra nao ter que ficar repetindo o parse -feh
     static int lerInt(Scanner sc){
         while(true){
             try {
@@ -84,19 +83,20 @@ public class Main {
                     if (lerCaixa(caixa))
                     {
                         verCaixaAtual(pedido, totalCaixa);
-                    }
-
+                    } break;
                 case 5: menuEstoque(sc, estoque);break;
 
                 case 6:
                     if(lerCaixa(caixa))
                     {
-                        caixa.fecharCaixa(totalCaixa);
+                        double faturamento = calcularCaixa(pedido, totalCaixa);
+                        caixa.fecharCaixa(faturamento);
+
                     } break;
-                case 7: System.out.println("Finalizando..."); break;
+                case 8: System.out.println("Finalizando..."); break;
                 default: System.out.println("Selecione uma opcao valida"); break;
             }
-        }while(opcao!=7);
+        }while(opcao!=8);
     }
 
     static void menuProdutos(Scanner sc, Cardapio cardapio) {
@@ -217,7 +217,7 @@ public class Main {
         String saida;
         do{
             //logica para identificar o maior id e nao permitir q o usuario digite um id maior que a lista atual
-            int maior = cardapio.getMapaProduto().values().stream().mapToInt(v -> v.getId()).max().orElse(0);
+            int maior = cardapio.getMapaProduto().values().stream().mapToInt(Produto::getId).max().orElse(0);
 
             int id= lerInt(sc);
             while(id > maior || id < 0)
@@ -258,6 +258,10 @@ public class Main {
         if(metodo != null){
             pagamentos.maquininhaTaxa(pedido, metodo);
         }
+
+        int idGerado = pedidos.size() + 1; // Gera um ID simples
+        pedidos.put(idGerado, pedido);
+        System.out.println("Pedido #" + idGerado + " registrado com sucesso!");
     }
 
     static void buscarProduto(Scanner sc, Cardapio cardapio){
