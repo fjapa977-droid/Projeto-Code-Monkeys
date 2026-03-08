@@ -51,7 +51,7 @@ public class Main {
         menuInicial(sc, cardapio, pedido, estoque, caixa, totalCaixa);
         sc.close();
     }
-    static void menuInicial(Scanner sc, Cardapio cardapio, Map<Integer,Pedido> pedido, Estoque estoque, Caixa caixa, double totalCaixa){
+    static void menuInicial(Scanner sc, Cardapio cardapio, Map<Integer,Pedido> pedido, Estoque estoque, Caixa caixa, double totalCaixa, Clientes cliente){
         int opcao;
         do {
             System.out.println(
@@ -68,9 +68,6 @@ public class Main {
             );
             opcao = lerInt(sc);
             switch (opcao) {
-                case 1:
-                case 2: menuProdutos(sc, cardapio); break;
-                case 3: fazerPedido(sc, cardapio, pedido, estoque,cliente); break;
                 case 1: abrirCaixa(sc, caixa);break;
                 case 2:
                     if(lerCaixa(caixa)) {
@@ -79,16 +76,14 @@ public class Main {
                 case 3:
                     if(lerCaixa(caixa))
                     {
-                        fazerPedido(fazerPedido(sc, cardapio, pedido, estoque,cliente);
+                        fazerPedido(sc, cardapio, pedido, estoque,cliente);
                     } break;
                 case 4:
                     if (lerCaixa(caixa))
                     {
                         verCaixaAtual(pedido, totalCaixa);
                     }
-
                 case 5: menuEstoque(sc, estoque);break;
-
                 case 6:
                     if(lerCaixa(caixa))
                     {
