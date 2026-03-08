@@ -7,7 +7,7 @@ public class ItemPedido {
 
     public ItemPedido(Produto produto, int quantidade){
         if(quantidade < 0){
-            throw new IllegalArgumentException("coloca certo porra");
+            throw new IllegalArgumentException("Tipo de dado incorreto");
         }
         this.produto = produto;
         this.quantidade = quantidade;

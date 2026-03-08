@@ -1,8 +1,6 @@
 package org.example;
 
-import java.util.Scanner;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
 public class Main {
 //criei esses metodos pra nao ter que ficar repetindo o parse -feh
@@ -29,6 +27,17 @@ public class Main {
         String entrada = sc.nextLine();
         return (entrada != null) ? entrada.trim().toLowerCase() : "";
     }
+    static boolean lerCaixa(Caixa caixa)
+    {
+        if(!caixa.isAberto())
+        {
+            System.out.println("Caixa fechado");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Estoque estoque = new Estoque();
@@ -39,10 +48,10 @@ public class Main {
         carregarEstoque(cardapio,estoque);
         System.out.println("\tSistema iniciado");
 
-        menuInicial(sc, cardapio, pedido, estoque,cliente);
+        menuInicial(sc, cardapio, pedido, estoque, caixa, totalCaixa);
         sc.close();
     }
-    static void menuInicial(Scanner sc, Cardapio cardapio, Map<Integer,Pedido> pedido, Estoque estoque,Clientes cliente){
+    static void menuInicial(Scanner sc, Cardapio cardapio, Map<Integer,Pedido> pedido, Estoque estoque, Caixa caixa, double totalCaixa){
         int opcao;
         do {
             System.out.println(
@@ -50,9 +59,9 @@ public class Main {
                             1-abrir caixa
                             2-cardapio
                             3-fazer pedido
-                            4-fechar caixa
+                            4-valor total dos caixas
                             5-estoque
-                            6-
+                            6-fechar caixa
                             7- Mostrar os pedidos
                             8-finalizar programa
                             """
@@ -62,15 +71,34 @@ public class Main {
                 case 1:
                 case 2: menuProdutos(sc, cardapio); break;
                 case 3: fazerPedido(sc, cardapio, pedido, estoque,cliente); break;
+                case 1: abrirCaixa(sc, caixa);break;
+                case 2:
+                    if(lerCaixa(caixa)) {
+                        menuProdutos(sc, cardapio);
+                    } break;
+                case 3:
+                    if(lerCaixa(caixa))
+                    {
+                        fazerPedido(fazerPedido(sc, cardapio, pedido, estoque,cliente);
+                    } break;
                 case 4:
+                    if (lerCaixa(caixa))
+                    {
+                        verCaixaAtual(pedido, totalCaixa);
+                    }
+
                 case 5: menuEstoque(sc, estoque);break;
-                case 6: break;
+
+                case 6:
+                    if(lerCaixa(caixa))
+                    {
+                        caixa.fecharCaixa(totalCaixa);
+                    } break;
                 case 7: MostrarPedidos(pedido); break;
-                case 8:
-                    System.out.println("Finalizando..."); break;
-                default: System.out.println("Opçao invalida"); break;
+                case 8: System.out.println("Finalizando..."); break;
+                default: System.out.println("Selecione uma opcao valida"); break;
             }
-        }while(opcao!=6);
+        }while(opcao!=8);
     }
 
     static void menuProdutos(Scanner sc, Cardapio cardapio) {
@@ -362,6 +390,22 @@ public class Main {
                 case 5 -> estoque.mostrarEstoque();
             }
         }while(opcao != 6);
+    }
+    static void abrirCaixa(Scanner sc, Caixa caixa)
+    {
+        System.out.println("Digite o valor inicial do caixa");
+        double valorInicial = lerDouble(sc);
+        caixa.abrir(valorInicial);
+    }
+
+    static double calcularCaixa(Map<Integer,Pedido> pedido, double totalCaixa)
+    {
+        totalCaixa = pedido.values().stream().mapToDouble(Pedido::calcularTotal).sum();
+        return totalCaixa;
+    }
+    static void verCaixaAtual(Map<Integer,Pedido> pedido, double totalCaixa)
+    {
+        System.out.println("Caixa atual no valor de R$" + calcularCaixa(pedido, totalCaixa));
     }
 }
 
