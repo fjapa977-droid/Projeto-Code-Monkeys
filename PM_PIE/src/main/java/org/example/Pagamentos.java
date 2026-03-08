@@ -10,7 +10,7 @@ public class Pagamentos {
 
         System.out.println("Valor pago: " + valorPago);
         System.out.println("Metodo de pagamento: " +  metodo.getClass().getSimpleName());
-        System.out.println("Valor final " + valorFinal);
+        System.out.println("Valor final" + valorFinal);
     }
 
 }

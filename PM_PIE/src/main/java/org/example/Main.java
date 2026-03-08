@@ -64,7 +64,8 @@ public class Main {
                             4-valor total dos caixas
                             5-estoque
                             6-fechar caixa
-                            7-finalizar programa
+                            7- Mostrar os pedidos
+                            8-finalizar programa
                             """
             );
             opcao = lerInt(sc);
@@ -77,7 +78,7 @@ public class Main {
                 case 3:
                     if(lerCaixa(caixa))
                     {
-                        fazerPedido(sc, cardapio, pedido, estoque);
+                        fazerPedido(fazerPedido(sc, cardapio, pedido, estoque,cliente);
                     } break;
                 case 4:
                     if (lerCaixa(caixa))
@@ -93,6 +94,7 @@ public class Main {
                         caixa.fecharCaixa(faturamento);
 
                     } break;
+                case 7: MostrarPedidos(pedido); break;
                 case 8: System.out.println("Finalizando..."); break;
                 default: System.out.println("Selecione uma opcao valida"); break;
             }
@@ -209,29 +211,57 @@ public class Main {
             cardapio.adicionarProduto(p);
         }
     }
-    static void fazerPedido(Scanner sc, Cardapio cardapio, Map<Integer,Pedido> pedidos, Estoque estoque)
+    static void fazerPedido(Scanner sc, Cardapio cardapio, Map<Integer,Pedido> pedidos, Estoque estoque,Clientes cliente)
     {
-        Pedido pedido = new Pedido(new Clientes("cliente","",0,1));
-        cardapio.exibirCardapio();
-        System.out.println("Digite o id dos produtos do cardapio para adicionar ao pedido");
-        String saida;
+        int opcao;
+        Pedido pedido = new Pedido(new Clientes(cliente.getNomeCliente(),cliente.getEndereco(),cliente.getTelefone(),cliente.getIdCliente()));
         do{
-            //logica para identificar o maior id e nao permitir q o usuario digite um id maior que a lista atual
-            int maior = cardapio.getMapaProduto().values().stream().mapToInt(Produto::getId).max().orElse(0);
+            System.out.println("""
+                    1-adicionar produto
+                    2-remover produto do pedido
+                    3-finalizar pedido
+                    """);
+            opcao = lerInt(sc);
 
-            int id= lerInt(sc);
-            while(id > maior || id < 0)
-            {
-                System.out.println("Digite um id valido");
-                id = lerInt(sc);
+            switch (opcao){
+                case 1 ->{
+                    cardapio.exibirCardapio();
+
+
+                    System.out.println("digite o id do produto: ");
+                    int id = lerInt(sc);
+
+                    System.out.println("digite a quantidade: ");
+                    int qtd = lerInt(sc);
+
+                    Produto produto = cardapio.getMapaProduto().get(id);
+                    if(produto == null){
+                        System.out.println("produto nao existe");
+                        break;
+                    }
+
+                    pedido.adicionarProdutoPedido(id,qtd, cardapio.getMapaProduto());
+                    pedido.mostrarPedido();
+                }
+
+                case 2 -> {
+                    pedido.mostrarPedido();
+
+                    System.out.println("digite o id do produto pra remover");
+                    int id = lerInt(sc);
+
+                    pedido.removerItem(id);
+
+                    pedido.mostrarPedido();
+                }
+
+                case 3 -> {
+                    System.out.println("fechando pedido");
+                    pedidos.put(pedidos.size()+1,pedido);
+                }
+                default -> System.out.println("opçao invalida");
             }
-            System.out.println("Digite a quantidade do produto escolhido");
-            int qtd = lerInt(sc);
-            pedido.adicionarProdutoPedido(id,qtd, cardapio.getMapaProduto());
-            pedido.mostrarPedido();
-            System.out.println("Se concluir seu pedido digite \"sair\", se deseja continuar adicionando produtos ao pedido digite \"continuar\"");
-            saida = lerString(sc);
-        }while (!saida.equals("sair"));
+        }while (opcao != 3);
         pedido.atualizarEstoque(estoque);
 
         Pagamentos pagamentos = new Pagamentos();
@@ -258,10 +288,6 @@ public class Main {
         if(metodo != null){
             pagamentos.maquininhaTaxa(pedido, metodo);
         }
-
-        int idGerado = pedidos.size() + 1; // Gera um ID simples
-        pedidos.put(idGerado, pedido);
-        System.out.println("Pedido #" + idGerado + " registrado com sucesso!");
     }
 
     static void buscarProduto(Scanner sc, Cardapio cardapio){
@@ -286,6 +312,20 @@ public class Main {
             System.out.println("Opção invalida");
         }
     }
+
+    static void MostrarPedidos(Map<Integer,Pedido> pedidos)
+    {
+        if (pedidos.isEmpty()) {
+            System.out.println("Nenhum pedido cadastrado");
+            return;
+        }
+
+        for (Pedido p : pedidos.values()) {
+            p.mostrarPedido(); // chama o metodo do pedido
+            System.out.println("-------------------");
+        }
+    }
+
     static void menuEstoque(Scanner sc, Estoque estoque){
         int opcao;
         do{
