@@ -7,13 +7,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Pedido {
+    private Clientes cliente;
 
     private List<ItemPedido> itens;
 
-    public Pedido(){
+    public Pedido(Clientes cliente){
+        this.cliente = cliente;
         itens = new ArrayList<>();
     }
-
 
     public void adicionarItem(Produto produto, int quantidade){
         for(ItemPedido item : itens){
@@ -61,4 +62,26 @@ public class Pedido {
         //}
     }
 
+    public Clientes getCliente(){
+        return cliente;
+    }
+
+    public void atualizarEstoque(Estoque estoque){
+
+        for(ItemPedido item : itens){
+
+            Produto produto = item.getProduto();
+            int quantidadeProduto = item.getQuantidade();
+
+            for(Map.Entry<Integer,Integer> ing : produto.getIngredientes().entrySet()){
+
+                int idIngrediente = ing.getKey();
+                int quantidadeUsada = ing.getValue() * quantidadeProduto;
+
+                estoque.darBaixa(idIngrediente, quantidadeUsada);
+            }
+        }
+    }
+
 }
+
