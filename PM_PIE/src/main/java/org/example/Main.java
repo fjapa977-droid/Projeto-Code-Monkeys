@@ -1,11 +1,8 @@
 package org.example;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
-//criei esses metodos pra nao ter que ficar repetindo o parse -feh
     static int lerInt(Scanner sc){
         while(true){
             try {
@@ -29,19 +26,31 @@ public class Main {
         String entrada = sc.nextLine();
         return (entrada != null) ? entrada.trim().toLowerCase() : "";
     }
+    static boolean lerCaixa(Caixa caixa)
+    {
+        if(!caixa.isAberto())
+        {
+            System.out.println("Caixa fechado");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Estoque estoque = new Estoque();
         Cardapio cardapio = new Cardapio();
+        Caixa caixa = new Caixa();
         Clientes cliente = new Clientes("cliente","",0,1);
         Map<Integer,Pedido> pedido = new HashMap<>();
         carregarEstoque(cardapio,estoque);
         System.out.println("\tSistema iniciado");
 
-        menuInicial(sc, cardapio, pedido, estoque);
+        menuInicial(sc, cardapio, pedido, estoque, caixa);
         sc.close();
     }
-    static void menuInicial(Scanner sc, Cardapio cardapio, Map<Integer,Pedido> pedido, Estoque estoque){
+    static void menuInicial(Scanner sc, Cardapio cardapio, Map<Integer,Pedido> pedido, Estoque estoque, Caixa caixa){
         int opcao;
         do {
             System.out.println(
@@ -49,18 +58,38 @@ public class Main {
                             1-abrir caixa
                             2-menu de produtos
                             3-fazer pedido
-                            4-fechar caixa
-                            5-finalizar programa
+                            4-finalizar um pedido
+                            5-fechar caixa
+                            6-finalizar programa
                             """
             );
             opcao = lerInt(sc);
             switch (opcao) {
                 case 1:
-                case 2: menuProdutos(sc, cardapio); break;
-                case 3: fazerPedido(sc, cardapio, pedido, estoque); break;
+                    if(lerCaixa(caixa)) {
+                        abrirCaixa(sc, caixa);
+                    } break;
+                case 2:
+                    if(lerCaixa(caixa)) {
+                        menuProdutos(sc, cardapio);
+                    } break;
+                case 3:
+                    if(lerCaixa(caixa))
+                    {
+                        fazerPedido(sc, cardapio, pedido, estoque);
+                    } break;
                 case 4:
-                case 5: System.out.println("Finalizando..."); break;
-                default: System.out.println("Escreve porra direito"); break;
+                    if (lerCaixa(caixa))
+                    {
+                       // finalizarPedido(sc, caixa);
+                    }break;
+                case 5:
+                    if(lerCaixa(caixa))
+                    {
+                        //caixa.fecharCaixa(pedido.calcularTotal());
+                    } break;
+                case 6: System.out.println("Finalizando..."); break;
+                default: System.out.println("Selecione uma opcao valida"); break;
             }
         }while(opcao!=5);
     }
@@ -178,7 +207,15 @@ public class Main {
         System.out.println("Digite o id dos produtos do cardapio para adicionar ao pedido");
         String saida;
         do{
+            //logica para identificar o maior id e nao permitir q o usuario digite um id maior que a lista atual
+            int maior = cardapio.getMapaProduto().values().stream().mapToInt(v -> v.getId()).max().orElse(0);
+
             int id= lerInt(sc);
+            while(id > maior || id < 0)
+            {
+                System.out.println("Digite um id valido");
+                id = lerInt(sc);
+            }
             System.out.println("Digite a quantidade do produto escolhido");
             int qtd = lerInt(sc);
             pedido.adicionarProdutoPedido(id,qtd, cardapio.getMapaProduto());
@@ -188,6 +225,12 @@ public class Main {
         }while (!saida.equals("sair"));
         pedido.atualizarEstoque(estoque);
         pedidos.put(pedidos.size()+1, pedido);
+    }
+    static void abrirCaixa(Scanner sc, Caixa caixa)
+    {
+        System.out.println("Digite o valor inicial do caixa");
+        double valorInicial = lerDouble(sc);
+        caixa.abrir(valorInicial);
     }
 }
 
