@@ -59,7 +59,7 @@ public class Main {
                 case 2: menuProdutos(sc, cardapio); break;
                 case 3: fazerPedido(sc, cardapio, pedido, estoque); break;
                 case 4:
-                case 5: menuEstoque(sc, estoque);
+                case 5: menuEstoque(sc, estoque);break;
                 case 6: System.out.println("Finalizando..."); break;
                 default: System.out.println("Opçao invalida"); break;
             }
@@ -125,7 +125,8 @@ public class Main {
                 1-Atualizar produto
                 2-Atualizar ingredientes
                 """);
-            if (lerInt(sc) == 1){
+        int opcao = lerInt(sc);
+            if (opcao == 1){
                 cardapio.exibirCardapio();
 
                 System.out.println("digite o id: ");
@@ -142,7 +143,7 @@ public class Main {
 
                 cardapio.atualizarProduto(id,preco,nome,categoria);
                 cardapio.exibirProduto(id);
-            }else if(lerInt(sc) == 2){
+            }else if(opcao == 2){
                 cardapio.exibirCardapio();
 
                 System.out.println("Digite o id do produto:");
@@ -196,6 +197,12 @@ public class Main {
 
                     System.out.println("digite a quantidade: ");
                     int qtd = lerInt(sc);
+
+                    Produto produto = cardapio.getMapaProduto().get(id);
+                    if(produto == null){
+                        System.out.println("produto nao existe");
+                        return;
+                    }
 
                     pedido.adicionarProdutoPedido(id,qtd, cardapio.getMapaProduto());
 
@@ -262,7 +269,7 @@ public class Main {
             System.out.println("Digite a categoria");
             String categoria = sc.nextLine();
 
-            cardapio.buscarPorcCategoria(categoria);
+            cardapio.buscarPorCategoria(categoria);
         }else {
             System.out.println("Opção invalida");
         }

@@ -56,7 +56,7 @@ public class Cardapio {
         }
     }
 
-    public void buscarPorcCategoria(String categoria){
+    public void buscarPorCategoria(String categoria){
         for (Produto p : mapaProduto.values()){
             if (p.getCategoria().equalsIgnoreCase(categoria)){
                 System.out.println(p);

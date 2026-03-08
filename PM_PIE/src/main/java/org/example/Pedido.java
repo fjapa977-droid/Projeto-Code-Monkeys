@@ -43,7 +43,7 @@ public class Pedido {
 
         return total;
     }
-    public void mostrarPedido(int quantidade) {
+    public void mostrarPedido() {
         if (itens.isEmpty())
         {
             System.out.println("Lista de itens vazia");
