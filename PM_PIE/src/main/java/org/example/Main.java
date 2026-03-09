@@ -69,7 +69,7 @@ public class Main {
             );
             opcao = lerInt(sc);
             switch (opcao) {
-                case 1: abrirCaixa(sc, caixa);break;
+                case 1: if(!lerCaixa(caixa)) {abrirCaixa(sc, caixa);break;}break;
                 case 2:
                     if(lerCaixa(caixa)) {
                         menuProdutos(sc, cardapio);
@@ -314,14 +314,17 @@ public class Main {
 
     static void MostrarPedidos(Map<Integer,Pedido> pedidos)
     {
+        int idPedido = 1;
         if (pedidos.isEmpty()) {
             System.out.println("Nenhum pedido cadastrado");
             return;
         }
 
         for (Pedido p : pedidos.values()) {
+            System.out.printf("Pedido numero: %d\n", idPedido);
             p.mostrarPedido(); // chama o metodo do pedido
             System.out.println("-------------------");
+            idPedido++;
         }
     }
 

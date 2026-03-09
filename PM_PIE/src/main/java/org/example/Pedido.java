@@ -46,7 +46,8 @@ public class Pedido {
             return;
         }
                 for (ItemPedido p : itens.values()) {
-                    System.out.printf("%s - R$ %.2f | Quantidade %d | Total: %.2f\n",
+                    System.out.printf("id: %d | %s - R$ %.2f | Quantidade %d | Total: %.2f\n",
+                            p.getProduto().getId(),
                             p.getProduto().getNome(),
                             p.getProduto().getPreco(),
                             p.getQuantidade(),
@@ -81,5 +82,8 @@ public class Pedido {
         }
     }
 
+    public Map<Integer, ItemPedido> getItens() {
+        return itens;
+    }
 }
 
